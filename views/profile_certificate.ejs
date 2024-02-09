@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Información de Certificado</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .card {
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+
+.logo {
+    max-width: 160px;
+    margin-bottom: 20px;
+}
+
+.logos {
+    width: 130px;
+    height: 120px;
+    margin-bottom: 20px;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card">
+                    <% const diffTime = profile.finish.getTime() - profile.start.getTime(); %>
+                    <% const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); %>
+                    <!-- Logo de la Escuela -->
+                    <img src="/assets/img/logo.png" alt="Logo Escuela" class="logo">
+                    
+                    <h5 class="card-title"><%= profile.id_certification.name %></h5>
+                    <p class="card-text"><%= profile.id_certification.description %></p>
+
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Inicio de curso: <%= profile.start.toLocaleDateString() %></li>
+                        <li class="list-group-item">Fin del curso: <%= profile.finish.toLocaleDateString() %></li>
+                        <li class="list-group-item">Expedido: <%= profile.data_register.toLocaleDateString() %></li>
+                    </ul>
+
+                    <p>Acredita a: <%= profile.name %> <%= profile.lastnames %> por tomar el <%= profile.id_certification.type %> de <%= profile.id_certification.name %> con una duración de <%= profile.id_certification.hours %> horas. A cargo de <%= profile.id_certification.id_signature.name %> <%= profile.id_certification.id_signature.lastnames %> <%= profile.id_certification.id_signature.degree %>.</p>
+
+                   <!-- Logo del Ayuntamiento y del Congreso centrados -->
+<div class="row justify-content-center">
+    <img src="/assets/img/logo1.png" alt="Logo Ayuntamiento" class="logos">
+    <img src="/assets/img/logo2.png" alt="Logo Congreso" class="logos">
+</div>
+
+                    <br><a href="/">Volver</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

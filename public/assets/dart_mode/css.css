@@ -1,0 +1,20 @@
+/* Estilos para el modo claro */
+.light-mode {
+    background-color: #fff !important;
+    color: #333 !important;
+    /* Agrega otros estilos según sea necesario */
+}
+
+/* Estilos para el modo oscuro */
+.dark-mode {
+    background-color: #333 !important;
+    color: #fff !important;
+    /* Agrega otros estilos según sea necesario */
+} 
+
+/* Estilos para el modo oscuro */
+.dark-mode_2 {
+    background-color: #606060 !important;
+    color: #fff !important;
+    /* Agrega otros estilos según sea necesario */
+}

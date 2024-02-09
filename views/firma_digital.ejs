@@ -1,0 +1,400 @@
+<!DOCTYPE html> 
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Certificaciones</title>
+    <!-- BOOTSTRAP STYLES-->
+    <link href="/assets/css/bootstrap.css" rel="stylesheet" />
+    <!-- FONTAWESOME STYLES-->
+    <link href="/assets/css/font-awesome.css" rel="stylesheet" />
+    <!-- CUSTOM STYLES-->
+    <link href="/assets/css/custom.css" rel="stylesheet" /> 
+    <!-- GOOGLE FONTS-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+
+<!-- SweetAlert2 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+</head>
+<body>
+    <div id="wrapper">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="adjust-nav">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Certificacion Virtual</a> 
+                </div>
+                <div class="navbar-collapse collapse">
+                    <!-- Lista desplegable en la esquina derecha -->
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-desktop"></i> Cuenta<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a><i class="fa fa-user fa-fw"></i> Mi Perfil</a></li>
+                                 <li><a><i class="fa fa-question-circle fa-fw"></i> Ayuda</a></li>
+                                <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Cerrar sesión</a></li>
+                            </ul>
+                            
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- /. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div  class="sidebar-collapse light-mode" >
+                <ul style="background-color: aliceblue;" id="navar"  class="nav " id="main-menu">
+                    <li  class="text-center user-image-back">
+                        <img src="/assets/img/find_user.png" class="img-responsive" />
+                    </li>
+                    <li>
+                        <a href="/portal" ><i class="fa fa-desktop"></i>Panel</a>
+                    </li>
+                    <li>
+                        <a href="/portal/courses"><i class="fa fa-table"></i>Cursos</a>
+                    </li>
+                    <li>
+                        <a href="/portal/certifications"><i class="fa fa-desktop " > </i>Certificados</a>
+                    </li>
+                    <li>
+                        <a href="/portal/diplomates"><i class="fa fa-table"></i>Diplomados</a>
+                    </li>
+                    <li>
+                        <a style="color: #555;" href="/portal/firma_digital"><i style=" color: #555;" class="fa fa-table "></i>Firma Digital</a>
+                    </li>
+                    
+                </ul>
+
+            </div>
+
+        </nav>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="wrapper" >
+                <div id="page-inner">
+                    <div class="row">
+                        <div class="col-md-12">
+                         <h2>Firmas digitales</h2>   
+                        </div>
+                    </div>    
+                    <div class="col-md-12">
+                        <form enctype="multipart/form-data" class="form-inline" id="certificationForm">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Nombre">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="lastnames" name="lastnames" placeholder="Apellidos">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="degree" name="degree" placeholder="Grado de Estudios">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="description" name="description" placeholder="Description">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Registrar</button>
+                            </div><br>
+                            <div class="form-group"> 
+                                <input type="file" class="form-control" id="image" name="image" accept="image/*" onchange="previewImage()">
+                            </div>
+
+                             
+                            <img id="preview" src="#" alt="Vista previa de la imagen" style="display: none; max-width: 100%; margin-top: 10px;">
+                        </form>
+                        <div id="enviadoCorrectamente" style="display: none;">
+                            <i class="fa fa-check-circle"></i> Enviado correctamente
+                        </div>
+                    </div>               
+                     <!-- /. ROW  -->
+                      <hr />
+                      <div class="row">
+                        <div class="col-md-10">
+                            <h5>Firmas registradas</h5>
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nombre</th>
+                                        <th>Apellidos</th>
+                                        <th>Grado</th>
+                                        <th>Descripcion</th>
+                                        <th>Configuracion</th> 
+                                        <th>Firma</th>
+                                        <th>Activa</th>     
+                                    </tr>
+                                </thead>
+                                <tbody id="table_index" >
+                                    
+                                        
+                            <%
+                            data.forEach((dat)=>{
+                        %>    
+                            <tr id="table_index">
+                                <td id="table_index">1</td>
+                                <td><%= dat.name%></td>
+                                <td><%= dat.lastnames%></td>
+                                <td><%= dat.degree%></td>
+                                <td><%= dat.description%></td>
+                                <td class="text-center"><a href="/signature/status_up/<%= dat.id%>"><button type="button" class="btn btn-red">⬆️</button></a><a href="/signature/status_down/<%= dat.id%>/"><button type="button" class="btn btn-red">⬇️</button></a><a href="/signature/delete/<%= dat.id%>"><br><button type="button" class="btn btn-danger">Eliminar</button></a></td>
+                                    
+                                <td class="text-center">
+                                    <% if (dat.image) { %>
+                                        <img src="<%= dat.image %>" alt="">
+                                    <% } else { %>
+                                        <div class="form-group">
+                                            <input type="file" class="form-control" id="image2" name="image2" accept="image/*" onchange="uploadImage(this)">
+                                        </div>
+                                    <% } %>
+                                </td>
+                                
+                                <td>
+                                    <%  
+                                        if(dat.status==true){
+                                    %>  
+                                    <a href="#">
+                                      <div style="width: 20px; height: 20px; border-radius: 50%; background-color:  rgb(60, 255, 0)  ;"></div>
+                                    </a>
+                                    <%  
+                                        }else{
+                                    %> 
+                                    <a href="#">
+                                      <div style="width: 20px; height: 20px; border-radius: 50%; background-color:  red  ;"></div>
+                                    </a>
+                                    <%  
+                                        }                                       
+                                    %>  </td> 
+                            </tr>
+                                
+
+                        <%
+                            });
+                        %>
+                             
+                                </tbody>
+                            </table>
+    
+                        </div>
+                         
+                    </div>
+                     <!-- /. ROW  -->           
+                </div>
+                 <!-- /. PAGE INNER  -->
+              
+            </div>
+        
+            
+         <!-- /. PAGE WRAPPER  -->
+        </div>
+     <!-- /. WRAPPER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    <!-- JQUERY SCRIPTS -->
+    <script src="https://validacioncertificados.vercel.app/assets/js/jquery-1.10.2.js"></script>
+    <!-- BOOTSTRAP SCRIPTS -->
+  <script src="https://validacioncertificados.vercel.app/assets/js/bootstrap.min.js"></script>
+  <!-- METISMENU SCRIPTS -->
+  <script src="https://validacioncertificados.vercel.app/assets/js/jquery.metisMenu.js"></script>
+    <!-- CUSTOM SCRIPTS -->
+  <script src="https://validacioncertificados.vercel.app/assets/js/custom.js"></script>
+ <!-- ... Tu código HTML anterior ... -->
+
+<script>
+    // Verifica si hay un modo almacenado en localStorage al cargar la página
+    window.addEventListener('DOMContentLoaded', function () {
+        var mode = localStorage.getItem('mode');
+        if (mode === 'dart') {
+            // Si el modo es "dart", ejecuta la función dart_mode
+            dart_mode();
+        }
+    });
+    function previewImage() {
+        var input = document.getElementById('image');
+        var preview = document.getElementById('preview');
+        
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    } 
+    
+    function uploadImage(input) {
+        var file = input.files[0];
+console.log(input)
+        if (file) {
+            var formData = new FormData();
+            formData.append('image2', file);
+
+            $.ajax({
+                type: 'POST',
+                url: 'https://validacioncertificados.vercel.app/signature/update-signature-file',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    console.log('Archivo subido con éxito:', response);
+                    // Puedes realizar acciones adicionales después de la carga exitosa si es necesario 
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Exito!',
+                    text: 'La imagen se actualizo con exito',
+                });
+                },
+                error: function(error) {
+                    console.error('Error al subir el archivo:', error);
+                    // Maneja el error según tus necesidades
+                // Muestra un mensaje de error si la subida no fue exitosa
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error al registrar la imagen digital de la firma',
+                });
+                }
+            });
+        }
+    }
+
+    function fileUpload() {
+        var form = document.getElementById('certificationForm');
+        var formData = new FormData(form);
+
+        fetch('/upload', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Aquí puedes manejar la respuesta del servidor
+            console.log(data);
+            if (data.success) {
+                // Muestra un mensaje de éxito o realiza acciones adicionales si es necesario
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Éxito',
+                    text: 'Firma registrada correctamente',
+                });
+                // Actualiza la tabla o realiza cualquier otra acción necesaria
+            } else {
+                // Muestra un mensaje de error si la subida no fue exitosa
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error al registrar la firma',
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Muestra un mensaje de error en caso de un fallo en la petición
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Error al comunicarse con el servidor',
+            });
+        });
+    }
+    function dart_mode(){  
+        // Alterna entre las clases de modo claro y oscuro en el elemento body
+        document.body.classList.toggle('light-mode'); 
+        document.body.classList.toggle('dark-mode');
+        // Alterna entre las clases 'light-mode' y 'dark-mode' en el elemento 'page-wrapper'
+        document.getElementById('page-wrapper').classList.toggle('light-mode');
+        document.getElementById('page-wrapper').classList.toggle('dark-mode_2');
+        // Alterna entre las clases 'light-mode' y 'dark-mode' en el elemento 'page-inner'
+        document.getElementById('page-inner').classList.toggle('light-mode');
+        document.getElementById('page-inner').classList.toggle('dark-mode');
+        // Alterna entre las clases 'light-mode' y 'dark-mode' en el elemento 'navar'
+        document.getElementById('navar').classList.toggle('light-mode');
+        document.getElementById('navar').classList.toggle('dark-mode'); 
+        // Alterna entre las clases 'light-mode' y 'dark-mode' en el elemento 'navar'
+        document.getElementById('table_index').classList.toggle('light-mode');
+        document.getElementById('table_index').classList.toggle('dark-mode'); 
+        //Mode in localstorage
+        localStorage.setItem('mode', 'dart');   
+    };
+
+    document.getElementById('certificationForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Evitar el envío del formulario por defecto
+        let token = localStorage.getItem('token'), idToken = localStorage.getItem('idToken');
+        var formData = new FormData();
+        formData.append('name', $('#name').val());
+        formData.append('lastnames', $('#lastnames').val());
+        formData.append('degree', $('#degree').val());
+        formData.append('description', $('#description').val());
+        formData.append('image', $('#image')[0].files[0]); 
+
+        $.ajax({
+            type: "POST",
+            url: "https://validacioncertificados.vercel.app/signature/register_new",
+            data: formData,
+            headers:{'token':token, 'idToken':idToken},
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                if (response.status === true) {
+                    document.getElementById('enviadoCorrectamente').style.display = 'block';
+                    setTimeout(function() {
+                        document.getElementById('enviadoCorrectamente').style.display = 'none';
+                    }, 3000);
+					// Mostrar una notificación de error con SweetAlert2
+					Swal.fire({
+						icon: 'success',
+						title: 'Exíto',
+						text: 'Se registro correctamente',
+						showCancelButton: false,   
+					});
+                    setTimeout(function() {
+                        location.reload();
+                    }, 3000);
+                } else {
+					// Mostrar una notificación de error con SweetAlert2
+				    Swal.fire({
+								icon: 'error',
+								title: 'Oops...',
+								text: 'Hubo un error en la solicitud: ' +response.msg,
+								showCancelButton: false,
+								confirmButtonColor: '#d33',
+								confirmButtonText: 'Entendido'
+					});
+                    document.getElementById('enviadoIncorrectamente').style.display = 'block';
+                    setTimeout(function() {
+                        document.getElementById('enviadoIncorrectamente').style.display = 'none';
+                    }, 3000);
+                }
+            },
+            error: function(xhr, status, error) {
+                document.getElementById('err').style.display = 'block';
+							// Mostrar una notificación de error con SweetAlert2
+							Swal.fire({
+								icon: 'error',
+								title: 'Oops...',
+								text: 'Hubo un error en la solicitud: ' +error,
+								showCancelButton: false,
+								confirmButtonColor: '#d33',
+								confirmButtonText: 'Entendido'
+							});
+                setTimeout(function() {
+                    document.getElementById('err').style.display = 'none';
+                }, 3000);
+            }
+        });
+    });
+</script>
+
+<!-- ... Tu código HTML posterior ... -->
+
+   
+</body>
+</html> 

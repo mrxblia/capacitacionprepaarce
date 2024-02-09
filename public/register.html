@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Certificacion Elecctronica</title>
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- Font-->
+	<link rel="stylesheet" type="text/css" href="css/opensans-font.css">
+	<link rel="stylesheet" type="text/css" href="fonts/line-awesome/css/line-awesome.min.css">
+	<!-- Jquery -->
+	<link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+	<!-- Main Style Css -->
+    <link rel="stylesheet" href="css/style.css"/>
+	<!-- SweetAlert2 CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+	
+	<!-- SweetAlert2 JS -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+</head>
+<body class="form-v4">
+	<div class="page-content">
+		<div class="form-v4-content">
+			<div class="form-left">
+				<h2>PORTAL</h2>
+				<p class="text-1">"¡Bienvenido de vuelta! Registrar usuarios para acceder al portal. Ingresa los datos para registrar un miembro mas. ¡Gracias por confiar en nuestros servicios!"</p>
+				<p class="text-2"><span> Recuerda:</span> No debe ser administrador cualquier eprsona. Cuida a quien le otorgas una cuenta.</p>
+				 
+			</div>
+			<form class="form-detail" method="post" id="myform">
+				<h2>Registro de usuarios</h2>
+				<div class="form-group">
+					<div class="form-row form-row-1">
+						<label for="first_name">Nombre</label>
+						<input type="text" name="name" id="name" class="input-text">
+					</div>
+					<div class="form-row form-row-1">
+						<label for="last_name">Apellidos</label>
+						<input type="text" name="lastnames" id="lastnames" class="input-text">
+					</div>
+				</div>
+				<div class="form-row">
+					<label for="your_email">Celular</label>
+					<input type="number" name="phone" id="phone" class="input-text" required>
+				</div>
+				<div class="form-row">
+					<label for="your_email">Correo</label>
+					<input type="text" name="email" id="email" class="input-text" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}">
+				</div>
+				<div class="form-row">
+					<label for="your_user">Usuario</label>
+					<input type="text" name="user" id="user" class="input-text" required >
+				</div>
+				<div class="form-group">
+					<div class="form-row form-row-1 ">
+						<label for="password">Contraseña</label>
+						<input type="password" name="password" id="password" class="input-text" required>
+					</div>
+					<div class="form-row form-row-1">
+						<label for="comfirm-password">Confirmar contraseña</label>
+						<input type="password" name="comfirm_password" id="comfirm_password" class="input-text" required>
+					</div>
+				</div>
+				<div class="form-row-last">
+					<input type="submit" name="register" class="register" value="Registrar">
+				</div> 
+			</form>
+		</div>
+	</div>
+	<footer class="footer">
+		<p>Todos los derechos reservados &copy; 2023 Empresa</p>
+		<p><a href="https://tupagina.com/politica-privacidad">Política de Privacidad</a></p>
+	  </footer>
+	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+	<script>
+		// just for the demos, avoids form submit
+		jQuery.validator.setDefaults({
+		  	debug: true,
+		  	success:  function(label){
+        		label.attr('id', 'valid');
+   		 	},
+		});
+		$( "#myform" ).validate({
+		  	rules: {
+			    password: "required",
+		    	comfirm_password: {
+		      		equalTo: "#password"
+		    	}
+		  	},
+		  	messages: {
+		  		first_name: {
+		  			required: "Please enter a firstname"
+		  		},
+		  		last_name: {
+		  			required: "Please enter a lastname"
+		  		},
+		  		your_email: {
+		  			required: "Please provide an email"
+		  		},
+		  		password: {
+	  				required: "Please enter a password"
+		  		},
+		  		comfirm_password: {
+		  			required: "Please enter a password",
+		      		equalTo: "Wrong Password"
+		    	}
+		  	},
+			submitHandler: function(form) {
+			// Este bloque de código se ejecutará cuando el formulario sea válido y se intente enviar
+			// Aquí se envía el formulario utilizando AJAX
+			$.ajax({
+				type: "POST", // Tipo de solicitud (POST, GET, etc.)
+				url: "https://validacioncertificados.vercel.app/session/add_new_user_", // URL a la que se enviarán los datos del formulario
+				data: { name: $('#name').val(), lastnames: $('#lastnames').val(), phone: $('#phone').val(), email: $('#email').val(), password: $('#password').val(), user: $('#user').val() },	 // Datos que se enviarán al servidor (en este caso, el valor del campo "name")
+				success: function(response) {
+					
+					if(response.status==true){
+						Swal.fire({
+							icon: 'success',
+							title: 'Exíto',
+							text: 'Se registro correctamente',
+							showCancelButton: false,   
+						});
+					}else{
+						Swal.fire({
+							icon: 'error',
+							title: 'Oops...',
+							text: 'Hubo un error al registrar'+response.msg,
+							showCancelButton: false,   
+						});
+					}
+				},
+				error: function(xhr, status, error) {
+					// Mostrar una notificación de error con SweetAlert2
+				    Swal.fire({
+								icon: 'error',
+								title: 'Oops...',
+								text: 'Hubo un error en la solicitud: ' +error,
+								showCancelButton: false,
+								confirmButtonColor: '#d33',
+								confirmButtonText: 'Entendido'
+					});
+				}
+			});
+			}
+		});
+
+	</script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

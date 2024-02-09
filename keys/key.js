@@ -1,0 +1,5 @@
+module.exports = { 
+    KEY_PASSWORD:'24rl0HygMvfAfNHQWCLO0CqpQEsRP94mW7SxYkvN86SW2TYaPz',
+    KEY_ID_USER_ENCRYPT:'KXfozSLKnEocbCKexx5UO0htY4wbkhvq3y0L8S41xjh47ctt4Y', 
+    KEY_TOKEN:'Ys5p2lQgODbZV5WUYH6BCV0W15AwgfsunKYdhi99QCCFneaV7d',
+  };
