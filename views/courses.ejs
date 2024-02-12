@@ -239,7 +239,7 @@
             event.preventDefault(); // Evitar el envío del formulario por defecto 
 				$.ajax({
 					type: "POST", // Tipo de solicitud (POST, GET, etc.)
-					url: "https://validacioncertificados.vercel.app/courses/register_new", // URL a la que se enviarán los datos del formulario
+					url: "https://capacitacionarce.datosycifras.com/courses/register_new", // URL a la que se enviarán los datos del formulario
 					data: { name: $('#name').val(), description: $('#description').val(), details:  $('#details').val(), type:'Curso', signature_type:$('#category').val(),hours:$('#hours').val(),signature:selectedCategory},		 // Datos que se enviarán al servidor (en este caso, el valor del campo "name")
 					success: function(response) {
 						if (response.status === true) {
