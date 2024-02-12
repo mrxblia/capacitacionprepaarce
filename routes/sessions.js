@@ -27,14 +27,8 @@ module.exports = app=>{
         next();
     };
     //SESION REGISTRO
-    route.post('/add_new_user_',session.addNewUser)//Add user seller 
-    route.post('/login_',session.login_)//Login buyer
-    //Session Buyer
-   // route.post('/add_user',session.add_user)//Add user buyer
-    route.post('/validation_user_account_',ensureToken,session.validation_user_account_)//Validation codes, email send
-    //route.post('/:acces/add_user_',session._add_user)seller 
-    //Session Seller
-    //Validation in: /:acces/valdationn_user_account
-    route.post('/login_user_seller',session.login_user_seller)//Login Seller  
+    route.post('/add_new_user_',session.add_user)//Add user seller 
+    route.post('/login_',session.login_)//Login buyer 
+    //Session Seller 
     app.use('/session',route)
 };

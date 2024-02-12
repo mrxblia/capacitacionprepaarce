@@ -9,8 +9,8 @@ const key = require('../keys/key');
  
 evt.validate_certificaction = async (req,res)=>{
     const fol = req.params.id;
-    await Document.findOneAndUpdate({folio:fol},{status:true})
-    try{
+    await Document.findOneAndUpdate({_id:fol},{status:true})
+    try{console.log('e')
         res.redirect('/portal')
     }
     catch(err){

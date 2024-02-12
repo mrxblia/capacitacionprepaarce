@@ -23,8 +23,8 @@
 		<div class="form-v4-content">
 			<div class="form-left">
 				<h2>PORTAL</h2>
-				<p class="text-1">"¡Bienvenido de vuelta! Registrar usuarios para acceder al portal. Ingresa los datos para registrar un miembro mas. ¡Gracias por confiar en nuestros servicios!"</p>
-				<p class="text-2"><span> Recuerda:</span> No debe ser administrador cualquier eprsona. Cuida a quien le otorgas una cuenta.</p>
+				<p class="text-1">"¡Bienvenido de vuelta! Registrar usuarios para acceder al portal. Ingresa los datos para registrar un miembro mas."</p>
+				<p class="text-2"><span> Recuerda:</span> No debe ser administrador cualquier persona. Cuida a quien le otorgas una cuenta.</p>
 				 
 			</div>
 			<form class="form-detail" method="post" id="myform">
@@ -44,8 +44,24 @@
 					<input type="number" name="phone" id="phone" class="input-text" required>
 				</div>
 				<div class="form-row">
+					<label for="birtday">Cumpleaños</label>
+					<input type="date" class="input-text" id="birtday" name="birtday">
+				</div>
+				<div class="form-row">
 					<label for="your_email">Correo</label>
 					<input type="text" name="email" id="email" class="input-text" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}">
+				</div>
+				<div class="form-row">
+					<select class="input-text" required id="role" name="category">
+						<option value="" selected disabled>Selecciona el rol</option> 
+						<option value="Root">Root</option>  
+						<option value="Administrador">Administrador</option>  
+						<option value="Operaciones">Operaciones</option>  
+						<option value="Profesor">Profesor</option>  
+						<option value="Alumno">Alumno</option> 
+						<option value="Padre/Madre/Tutor">Padre/Madre/Tutor</option> 
+						<!-- Agrega más opciones según sea necesario -->
+					</select>
 				</div>
 				<div class="form-row">
 					<label for="your_user">Usuario</label>
@@ -62,8 +78,9 @@
 					</div>
 				</div>
 				<div class="form-row-last">
+					<input type="button"  onclick="window.location.href='/portal'" name="register" class="register" value=" Portal">
 					<input type="submit" name="register" class="register" value="Registrar">
-				</div> 
+				</div>  
 			</form>
 		</div>
 	</div>
@@ -112,10 +129,10 @@
 			// Aquí se envía el formulario utilizando AJAX
 			$.ajax({
 				type: "POST", // Tipo de solicitud (POST, GET, etc.)
-				url: "https://validacioncertificados.vercel.app/session/add_new_user_", // URL a la que se enviarán los datos del formulario
-				data: { name: $('#name').val(), lastnames: $('#lastnames').val(), phone: $('#phone').val(), email: $('#email').val(), password: $('#password').val(), user: $('#user').val() },	 // Datos que se enviarán al servidor (en este caso, el valor del campo "name")
+				url: "http://localhost/session/add_new_user_", // URL a la que se enviarán los datos del formulario
+				data: { name: $('#name').val(), lastnames: $('#lastnames').val(), phone: $('#phone').val(), email: $('#email').val(), role:$('#role').val(), birtday:$('#birtday').val(), user: $('#user').val(), password: $('#password').val(),  },	 // Datos que se enviarán al servidor (en este caso, el valor del campo "name")
 				success: function(response) {
-					
+					console.log(response)
 					if(response.status==true){
 						Swal.fire({
 							icon: 'success',
@@ -123,11 +140,12 @@
 							text: 'Se registro correctamente',
 							showCancelButton: false,   
 						});
+						$("#myform")[0].reset();
 					}else{
 						Swal.fire({
 							icon: 'error',
 							title: 'Oops...',
-							text: 'Hubo un error al registrar'+response.msg,
+							text: 'Hubo un error al registrar'+response.message,
 							showCancelButton: false,   
 						});
 					}

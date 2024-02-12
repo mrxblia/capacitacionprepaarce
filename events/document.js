@@ -33,7 +33,7 @@ evt.register_new_certificate = async (req, res) => {
         async function registerDoc(){
             const certif = new Document();
             console.log(certif.id); 
-            let urlData = 'https://validacioncertificados.vercel.app/certification/profile/' + certif.folio;
+            let urlData = 'https://capacitacionarce.datosycifras.com/certification/profile/' + certif.folio;
 
             const url = await new Promise((resolve, reject) => {
                 QRCode.toDataURL(urlData, (err, url) => {

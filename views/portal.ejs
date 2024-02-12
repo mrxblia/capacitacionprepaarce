@@ -16,6 +16,7 @@
     <!-- DART MODE -->
     <link href="/assets/dart_mode/css.css" rel="stylesheet" />
     <link href="/assets/dart_mode/events.js" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <div id="wrapper">
@@ -40,6 +41,15 @@
                                 <li><a onclick="dart_mode()"><i class="fa fa-moon-o fa-fw"></i> Modo oscuro</a></li>
                                 <li><a><i class="fa fa-question-circle fa-fw"></i> Ayuda</a></li>
                                 <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Cerrar sesión</a></li>
+                            </ul>
+                            
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-desktop"></i> Administracion</span></a>
+                            <ul class="dropdown-menu">
+                                 <li><a href="/register.html" ><i class="fa fa-user fa-fw"></i>+ Agergar usuario</a></li> 
                             </ul>
                             
                         </li>
@@ -255,7 +265,7 @@
            
 				$.ajax({
 					type: "POST", // Tipo de solicitud (POST, GET, etc.)
-					url: "https://validacioncertificados.vercel.app/certification/register_new_certificate", // URL a la que se enviarán los datos del formulario
+					url: "http://localhost/certification/register_new_certificate", // URL a la que se enviarán los datos del formulario
 					data: { name: $('#name').val(), lastnames: $('#lastnames').val(), course_id: $('#opciones').val(), day_start: $('#dayStart').val(), day_finish:  $('#dayFinish').val(), folio:  $('#folio').val()},	 // Datos que se enviarán al servidor (en este caso, el valor del campo "name")
 					success: function(response) {
 						if (response.status === true) {

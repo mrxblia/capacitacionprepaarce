@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const mongooseLeanVirtuals = require('mongoose-lean-virtuals');
 const {Schema}=mongoose;
 const path=require('path') 
+const rolesValidos = ['Root', 'Administrator', 'Operaciones', 'Profesor', 'Alumno', 'Padre/Madre/Tutor'];
+const esRolValido = (rol) => {
+    return rolesValidos.includes(rol);
+};
 const userSchema = new Schema({ 
     name:{
         type:String,
@@ -10,12 +14,25 @@ const userSchema = new Schema({
     lastnames:{
         type:String,
         required:true
+    },
+    birtday:{
+        type:Date,
+        required:true
     },    
     email:{
         type:String,
         required:true,
         unique:true
     }, 
+    rol: {
+        type: String,
+        required: true,
+        unique: true,
+        validate: {
+            validator: esRolValido,
+            message: props => `${props.value} no es un rol válido`
+        }
+    },
     user:{
         type:String,
         required:true,
@@ -29,30 +46,21 @@ const userSchema = new Schema({
         type:Number,
         required:true
     }, 
+    restored:{
+        type:Boolean,
+        required:true,
+        default:true
+    },  
     status:{
         type:Boolean,
         required:true,
         default:false
     },   
-    type_user:{
-        type:Number,
-        required:true, 
-    }, 
     data_register:{
         type:Date,
         default:Date.now,
         required:true
-    },
-    status:{
-        type:Boolean,
-        required:true,
-        default:true
     }, 
-    active_sessions:{
-        type:Boolean,
-        required:true, 
-    },  
      
-}
-); 
+}); 
 module.exports=mongoose.model('user',userSchema);
