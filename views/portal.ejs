@@ -265,7 +265,7 @@
            
 				$.ajax({
 					type: "POST", // Tipo de solicitud (POST, GET, etc.)
-					url: "http://localhost/certification/register_new_certificate", // URL a la que se enviarán los datos del formulario
+					url: "https://capacitacionarce.datosycifras.com/certification/register_new_certificate", // URL a la que se enviarán los datos del formulario
 					data: { name: $('#name').val(), lastnames: $('#lastnames').val(), course_id: $('#opciones').val(), day_start: $('#dayStart').val(), day_finish:  $('#dayFinish').val(), folio:  $('#folio').val()},	 // Datos que se enviarán al servidor (en este caso, el valor del campo "name")
 					success: function(response) {
 						if (response.status === true) {
