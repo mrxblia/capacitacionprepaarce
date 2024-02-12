@@ -7,7 +7,7 @@ require('./database/conection')
 //Iniciando el servidor
 const app = config(express());
 const httpServer = http.createServer(app); 
-const port=process.env.port||80;
+const port=process.env.port||8889;
 httpServer.listen(port,()=>{
     console.log("Servidor en el puerto " + port);
 })
