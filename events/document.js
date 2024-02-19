@@ -21,7 +21,7 @@ function generateFolio() {
 
 
 evt.register_new_certificate = async (req, res) => {
-    try {
+    try {console.log(req.body)
         const folio = generateFolio(); // Define esta función según el paquete que hayas elegido
         id_();
         async function id_(){
@@ -33,7 +33,7 @@ evt.register_new_certificate = async (req, res) => {
         async function registerDoc(){
             const certif = new Document();
             console.log(certif.id); 
-            let urlData = 'https://capacitacionarce.datosycifras.com/certification/profile/' + certif.folio;
+            let urlData = 'https://capacitacionarce.datosycifras.com/certification/profile/' + certif.id;
 
             const url = await new Promise((resolve, reject) => {
                 QRCode.toDataURL(urlData, (err, url) => {
@@ -52,6 +52,7 @@ evt.register_new_certificate = async (req, res) => {
             certif.finish = req.body.day_finish;
             certif.folio = folio;
             certif.qr = url; 
+            console.log(certif)
             await certif.save(); 
             res.json({ status: true, msg: 'Succesfull!' });
         }

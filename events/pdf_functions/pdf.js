@@ -1,6 +1,5 @@
 
-const PDFDocument = require('pdfkit');
-const axios = require('axios'); 
+const PDFDocument = require('pdfkit'); 
 const base64Img = require('base64-img');
 const fs = require('fs');
 const path = require('path');

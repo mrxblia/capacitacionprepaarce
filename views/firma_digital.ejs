@@ -61,13 +61,13 @@
                         <a href="/portal/courses"><i class="fa fa-table"></i>Cursos</a>
                     </li>
                     <li>
-                        <a href="/portal/certifications"><i class="fa fa-desktop " > </i>Certificados</a>
+                        <a href="/portal/certifications"> <i style=" color: #555;" class="fa fa-table "></i>Certificados</a>
                     </li>
                     <li>
                         <a href="/portal/diplomates"><i class="fa fa-table"></i>Diplomados</a>
                     </li>
                     <li>
-                        <a style="color: #555;" href="/portal/firma_digital"><i style=" color: #555;" class="fa fa-table "></i>Firma Digital</a>
+                        <a style="color: #555;" href="/portal/firma_digital"><i class="fa fa-desktop " ></i>Firma Digital</a>
                     </li>
                     
                 </ul>
@@ -125,8 +125,7 @@
                                         <th>Apellidos</th>
                                         <th>Grado</th>
                                         <th>Descripcion</th>
-                                        <th>Configuracion</th> 
-                                        <th>Firma</th>
+                                        <th>Configuracion</th>  
                                         <th>Activa</th>     
                                     </tr>
                                 </thead>
@@ -144,15 +143,7 @@
                                 <td><%= dat.description%></td>
                                 <td class="text-center"><a href="/signature/status_up/<%= dat.id%>"><button type="button" class="btn btn-red">⬆️</button></a><a href="/signature/status_down/<%= dat.id%>/"><button type="button" class="btn btn-red">⬇️</button></a><a href="/signature/delete/<%= dat.id%>"><br><button type="button" class="btn btn-danger">Eliminar</button></a></td>
                                     
-                                <td class="text-center">
-                                    <% if (dat.image) { %>
-                                        <img src="<%= dat.image %>" alt="">
-                                    <% } else { %>
-                                        <div class="form-group">
-                                            <input type="file" class="form-control" id="image2" name="image2" accept="image/*" onchange="uploadImage(this)">
-                                        </div>
-                                    <% } %>
-                                </td>
+                                
                                 
                                 <td>
                                     <%  

@@ -1,6 +1,7 @@
-<!DOCTYPE html> 
+<!DOCTYPE html> <html lang="en"></html>
 <head>
     <meta charset="utf-8" />
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Certificacion Virtual</title>
     <!-- BOOTSTRAP STYLES-->
@@ -65,14 +66,10 @@
                     <li class="text-center user-image-back">
                         <img src="assets/img/find_user.png" class="img-responsive" />
                      
-                    </li>
-
-
+                    </li> 
                     <li>
                         <a style="color: #555;" href="/portal"><i style=" color: #555;" class="fa fa-desktop "style="color: #555;"></i>Panel</a>
-                    </li>
-                    
-
+                    </li>  
                     <li>
                         <a href="/portal/courses"><i class="fa fa-table "></i>Cursos</a>
                     </li>
@@ -141,11 +138,12 @@
                   <hr />
                   <div class="row">
                   
-                    <div class="col-md-5">
+                    <div class="col-md-6">
                         <h5>Certificaciones aprobadas</h5>
                         <table id="table_index" class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr> 
+                                    <th>#</th>
                                     <th>Nombre</th> 
                                     <th>Curso</th>
                                     <th>Inicio</th>
@@ -157,10 +155,13 @@
                             <tbody>
                                 
                         <%
-                            certificationsTrue.forEach((dat)=>{
+                            certificationsTrue.forEach((dat)=>{console.log(dat.start)
                         %>    
                         <tr>  
-                            <td><a target="_blank" href="/certification/profile/<%= dat.id%>"><%= dat.name%> <%= dat.lastnames%></a></td> 
+                            
+                            <td><i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="<%= dat.name %> <%= dat.lastnames %> - <%= dat.id_certification.name %> - <%= dat.start %> - <%= dat.finish %>"></i></td>
+                            <td> <%= dat.name %> <%= dat.lastnames %></td>
+                            
                             <td>
                                 <% if (dat.id_certification) { %>
                                   <%= dat.id_certification.name %>
@@ -169,8 +170,8 @@
                                 <% } %>
                               </td>
                               
-                            <td><%= dat.start.toLocaleDateString()%></td>
-                            <td><%= dat.finish.toLocaleDateString()%></td>
+                            <td><%= dat.start  %></td>
+                            <td><%= dat.finish %></td>
                             
                             <td> <a href="/pdf/generate_validation/<%=dat.id %>">
                                 <i class="fas fa-download"></i>  
@@ -189,12 +190,13 @@
                         </table>
 
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-6">
                         <h5>Certificaciones en proceso de validacion</h5>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
-                                    <tr> 
+                                    <tr>  
+                                        <th>#</th> 
                                         <th>Nombre</th> 
                                         <th>Curso</th>
                                         <th>Inicio</th>
@@ -205,33 +207,40 @@
                                 </thead>
                                 <tbody>
                                     
-                                <%
-                                    certificationsFalse.forEach((dat)=>{
-                                %>    
-                                <tr> 
-                                    <td><%= dat.name%> <%= dat.lastnames%></td> 
+                                    <% 
+                                    certificationsFalse.forEach((dat) => { 
+                                  %> 
+                                         
+                                  
+                                  <tr>
+                                    <td><i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="<%= dat.name %> <%= dat.lastnames %> - <%= dat.id_certification.name %> - <%= dat.start %> - <%= dat.finish %>"></i></td>
+                                    <td> <%= dat.name %> <%= dat.lastnames %></td>
                                     <td>
-                                        <% if (dat.id_certification) { %>
-                                          <%= dat.id_certification.name %>
-                                        <% } else { %>
-                                          Eliminado
-                                        <% } %>
-                                      </td>
-                                    <td><%= dat.start.toLocaleDateString()%></td>
-                                    <td><%= dat.finish.toLocaleDateString()%></td>
-                                    <td> <a href="/pdf/generate/<%= dat.id%>">
-                                        <i class="fas fa-download"></i>  
-                                    </a></td>
+                                      <% if (dat.id_certification) { %>
+                                        <%= dat.id_certification.name %>
+                                      <% } else { %>
+                                        Eliminado
+                                      <% } %>
+                                    </td>
+                                    <td><%=dat.start %></td>
+                                    <td><%= dat.finish %></td>
                                     <td>
-                                        <a href="/validations/certification/<%= dat.id%>/"><button type="button" class="btn btn-primary">Validar</button></a>
+                                      <a href="/pdf/generate/<%= dat.id %>">
+                                        <i class="fas fa-download"></i>
+                                      </a>
                                     </td>
                                     <td>
-                                        <a href="/validations/certification/delete/<%= dat.id%>/"><button type="button" class="btn btn-red">Eliminar</button></a>
+                                      <a href="/validations/certification/<%= dat.id %>/"><button type="button" class="btn btn-primary">Validar</button></a>
                                     </td>
-                                </tr> 
-                                <%
+                                    <td>
+                                      <a href="/validations/certification/delete/<%= dat.id %>/"><button type="button" class="btn btn-red">Eliminar</button></a>
+                                    </td>
+                                  </tr>
+                                  
+                                  <%
                                     });
-                                %>
+                                  %>
+                                  
                                 </tbody>
                             </table>
                         </div>
@@ -262,11 +271,25 @@
         
         document.getElementById('register').addEventListener('submit', function(event) {
             event.preventDefault(); // Evitar el envío del formulario por defecto
-           
+                // Obtén las fechas en formato de cadena desde los campos de entrada
+                const dayStart = $('#dayStart').val();
+                const dayFinish = $('#dayFinish').val();
+
+                // Convierte las fechas al formato deseado ('YYYY-MM-DD')
+                const formattedDayStart = new Date(dayStart).toISOString().split('T')[0];
+                const formattedDayFinish = new Date(dayFinish).toISOString().split('T')[0];
+
 				$.ajax({
 					type: "POST", // Tipo de solicitud (POST, GET, etc.)
-					url: "https://capacitacionarce.datosycifras.com/certification/register_new_certificate", // URL a la que se enviarán los datos del formulario
-					data: { name: $('#name').val(), lastnames: $('#lastnames').val(), course_id: $('#opciones').val(), day_start: $('#dayStart').val(), day_finish:  $('#dayFinish').val(), folio:  $('#folio').val()},	 // Datos que se enviarán al servidor (en este caso, el valor del campo "name")
+					url: "http://localhost:8889/certification/register_new_certificate", // URL a la que se enviarán los datos del formulario
+					data: { 
+                        name: $('#name').val(), 
+                        lastnames: $('#lastnames').val(), 
+                        course_id: $('#opciones').val(), 
+                        day_start: formattedDayStart,
+                        day_finish: formattedDayFinish,
+                        folio:  $('#folio').val()
+                    },	 // Datos que se enviarán al servidor (en este caso, el valor del campo "name")
 					success: function(response) {
 						if (response.status === true) {
 							

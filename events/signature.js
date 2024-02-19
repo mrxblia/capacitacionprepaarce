@@ -1,8 +1,7 @@
 const evt = {};
 const {User, Acredit, Signature} = require('../database/tables/index'); 
 const CryptoJS=require('crypto-js') 
-const nodemailer = require('nodemailer')
-const {cloudinaryAddImage} = require('../events/cloudinary/cloudinary')
+const nodemailer = require('nodemailer') 
 var jwt = require('jsonwebtoken');
 const { codePhoneGenerate, codeEmailGenerate } = require('../helpers/tools');
 const key = require('../keys/key');

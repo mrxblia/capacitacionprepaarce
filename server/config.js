@@ -12,8 +12,7 @@ const evaluation=require('../routes/course')
 const validation=require('../routes/validation') 
 const signature=require('../routes/signature') 
 const profile=require('../routes/profile')   
-const pdf=require('../routes/pdf')   
-require('../keys/cloudinary')   
+const pdf=require('../routes/pdf')    
 module.exports = app =>{
 app.use(morgan('dev'));
 //Setings    

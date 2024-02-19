@@ -99,7 +99,7 @@
 			// Aquí se envía el formulario utilizando AJAX
 				$.ajax({
 					type: "POST", // Tipo de solicitud (POST, GET, etc.)
-					url: "http://localhost/session/login_", // URL a la que se enviarán los datos del formulario
+					url: "https://capacitacionarce.datosycifras.com/session/login_", // URL a la que se enviarán los datos del formulario
 					data: { user: $('#email').val(), password: $('#password').val() },	 // Datos que se enviarán al servidor (en este caso, el valor del campo "name")
 					success: function(response) {
 						if (response.status === true) {console.log(response.id)
