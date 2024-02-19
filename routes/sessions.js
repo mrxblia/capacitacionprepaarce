@@ -27,8 +27,8 @@ module.exports = app=>{
         next();
     };
     //SESION REGISTRO
-    route.post('/add_new_user_',session.add_user)//Add user seller 
-    route.post('/login_',session.login_)//Login buyer 
-    //Session Seller 
+    route.post('/add_new_user_',session.add_user) 
+    route.post('/login_',session.login_) 
+    route.get('/logaut',session.loaut)  
     app.use('/session',route)
 };

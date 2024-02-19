@@ -18,11 +18,14 @@ app.use(morgan('dev'));
 //Setings    
 app.set('view engine','ejs');  
 app.set('views', path.join(__dirname, '../views'));
-    //Session 
-    app.use(session({
-      secret:"xml",
-      resave:true,
-      saveUninitialized:true
+    //Session   
+
+  // Configuración de express-session
+  app.use(session({
+    secret: 'dataserviciosfsosite', // Cambia esto a una cadena segura en un entorno de producción
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } // Configura secure a true en un entorno de producción con HTTPS
   }));
   app.use(fileUpload({
     useTempFiles: true,

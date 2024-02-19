@@ -73,9 +73,17 @@ evt.portal = async (req, res) => {
                 certificationsFalse.push(ct);
                 console.log(certificationsFalse[0].start)
             }
+        } 
+        if(req.session.authenticated ){ 
+            if(req.session ==undefined ){
+                res.redirect("/login.html") 
+            }else{
+                res.render('portal', { moment, certificationsTrue, certificationsFalse, dataCertif });
+            }
+
+        }else{
+            res.redirect("/login.html") 
         }
-  
-        res.render('portal', { moment, certificationsTrue, certificationsFalse, dataCertif });
     } catch (err) {
         console.log(err);
         res.send('Error' + err);
@@ -84,65 +92,106 @@ evt.portal = async (req, res) => {
 
 
 evt.courses = async (req,res)=>{
-    await Acredit.find({type:'Curso'}).populate({
-        path: 'id_signature', 
-    }).sort({ name: 1 })
-    .then(async(data)=>{
-        await Signature.find({status:true}).sort({ name: 1 })
-        .then((sign)=>{
-            res.render('courses',{data:data,signature:sign})
-        })
-        .catch((err)=>{
-            console.log(err)
-            res.json({status:false,msg:err})
-        })
+    if(req.session.authenticated ){ 
+        if(req.session ==undefined ){
+            res.redirect("/login.html") 
+        }else{
+            
+            await Acredit.find({type:'Curso'}).populate({
+                path: 'id_signature', 
+            }).sort({ name: 1 })
+            .then(async(data)=>{
+                await Signature.find({status:true}).sort({ name: 1 })
+                .then((sign)=>{
+                    res.render('courses',{data:data,signature:sign})
+                })
+                .catch((err)=>{
+                    console.log(err)
+                    res.json({status:false,msg:err})
+                })
+            
+            })
+            .catch((err)=>{console.log(err)
+                res.render('err') 
+            })
+        }
+
+    }else{
+        res.redirect("/login.html") 
+    }
     
-    })
-    .catch((err)=>{console.log(err)
-        res.render('err') 
-    })
+    
 } 
 evt.certifications = async (req,res)=>{
-    await Acredit.find({type:'certification'}).populate({
-        path: 'id_signature', 
-    })
-    .then(async(data)=>{
-        await Signature.find({status:true})
-        .then((sign)=>{
-            res.render('certifications',{data:data,signature:sign})
-        })
-        .catch((err)=>{
-            console.log(err)
-            res.json({status:false,msg:err})
-        })
-    
-    })
-    .catch((err)=>{
-        res.render('err') 
-    })
+    if(req.session.authenticated ){ 
+        if(req.session ==undefined ){
+            res.redirect("/login.html") 
+        }else{ 
+            await Acredit.find({type:'certification'}).populate({
+                path: 'id_signature', 
+            })
+            .then(async(data)=>{
+                await Signature.find({status:true})
+                .then((sign)=>{
+                    res.render('certifications',{data:data,signature:sign})
+                })
+                .catch((err)=>{
+                    console.log(err)
+                    res.json({status:false,msg:err})
+                })
+            
+            })
+            .catch((err)=>{
+                res.render('err') 
+            })
+        }
+
+    }else{
+        res.redirect("/login.html") 
+    }
 } 
 evt.diplomates = async (req,res)=>{
-    await Acredit.find({type:'diplomate'}).populate({
-        path: 'id_signature', 
-    })
-    .then(async(data)=>{
-        await Signature.find({status:true})
-        .then((sign)=>{console.log(data)
-            res.render('diplomates',{data:data,signature:sign})
-        })
-        .catch((err)=>{
-            console.log(err)
-            res.json({status:false,msg:err})
-        })
-    
-    })
-    .catch((err)=>{
-        res.render('err') 
-    })
+    if(req.session.authenticated ){ 
+        if(req.session ==undefined ){
+            res.redirect("/login.html") 
+        }else{
+            await Acredit.find({type:'diplomate'}).populate({
+                path: 'id_signature', 
+            })
+            .then(async(data)=>{
+                await Signature.find({status:true})
+                .then((sign)=>{console.log(data)
+                    res.render('diplomates',{data:data,signature:sign})
+                })
+                .catch((err)=>{
+                    console.log(err)
+                    res.json({status:false,msg:err})
+                })
+            
+            })
+            .catch((err)=>{
+                res.render('err') 
+            })
+        }
+
+    }else{
+        res.redirect("/login.html") 
+    }
 }  
 evt.firma_digital = async (req,res)=>{
-    const sign = await Signature.find();
-    res.render('firma_digital',{data:sign});
+    if(req.session.authenticated ){ 
+        if(req.session ==undefined ){
+            res.redirect("/login.html") 
+        }else{
+            
+            const sign = await Signature.find();
+            res.render('firma_digital',{data:sign});
+        }
+
+    }else{
+        res.redirect("/login.html") 
+    }
+    
 } 
 
 

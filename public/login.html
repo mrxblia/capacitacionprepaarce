@@ -99,14 +99,20 @@
 			// Aquí se envía el formulario utilizando AJAX
 				$.ajax({
 					type: "POST", // Tipo de solicitud (POST, GET, etc.)
-					url: "https://capacitacionarce.datosycifras.com/session/login_", // URL a la que se enviarán los datos del formulario
+					url: "http://localhost:8889/session/login_", // URL a la que se enviarán los datos del formulario
 					data: { user: $('#email').val(), password: $('#password').val() },	 // Datos que se enviarán al servidor (en este caso, el valor del campo "name")
 					success: function(response) {
-						if (response.status === true) {console.log(response.id)
+						if (response.status === true) { 
 							// Si el atributo 'status' en la respuesta es verdadero, redirigir a otra página
 							localStorage.setItem('token', response.token); 
 							localStorage.setItem('idToken', response.id);  
-							window.location.href = '/portal'; // Reemplaza 'url_de_redireccion' con la URL a la que deseas redirigir
+							fetch('/portal', {
+								method: 'GET',
+								headers: {
+									'Authorization': `${response.token}`
+								}
+							})
+							window.location='/portal'
 						} else {
 							// Hacer algo si el 'status' no es verdadero
 							console.log("El 'status' no es verdadero");
@@ -127,7 +133,7 @@
 						// Mostrar una notificación de error con SweetAlert2
 						Swal.fire({
 							icon: 'error',
-							title: 'Oops...',
+							title: 'NTW. Oops...',
 							text: 'Hubo un error en la solicitud: ' + error,
 							showCancelButton: false,
 							confirmButtonColor: '#d33',

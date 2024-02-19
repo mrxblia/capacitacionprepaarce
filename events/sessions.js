@@ -97,7 +97,7 @@ evt.login_ = async (req,res)=>{
                 const token = generarToken();
                 let idCod=CryptoJS.AES.encrypt(userLog._id.toString(),key.KEY_ID_USER_ENCRYPT).toString(); 
                 req.session.user=userLog;
-                req.token = token;
+                req.session.token = token;
                 req.session.authenticated=true;
                 res.json({
                     message:'Login Successful',
@@ -133,7 +133,10 @@ evt.login_ = async (req,res)=>{
         })
     }
 }
-  
+evt.loaut = async (req,res)=> {
+    req.session.destroy();
+    res.redirect('/login.html')    
+}
 
 
  
