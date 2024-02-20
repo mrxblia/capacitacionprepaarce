@@ -33,7 +33,7 @@ evt.register_new_certificate = async (req, res) => {
         async function registerDoc(){
             const certif = new Document();
             console.log(certif.id); 
-            let urlData = 'https://capacitacionarce.datosycifras.com/certification/profile/' + certif.id;
+            let urlData = 'https://capacitacionarce.datosycifras.com/validations/certification-validate/' + folio;
 
             const url = await new Promise((resolve, reject) => {
                 QRCode.toDataURL(urlData, (err, url) => {
@@ -51,8 +51,7 @@ evt.register_new_certificate = async (req, res) => {
             certif.start = req.body.day_start;
             certif.finish = req.body.day_finish;
             certif.folio = folio;
-            certif.qr = url; 
-            console.log(certif)
+            certif.qr = url;  
             await certif.save(); 
             res.json({ status: true, msg: 'Succesfull!' });
         }
@@ -63,20 +62,6 @@ evt.register_new_certificate = async (req, res) => {
 };
 
 
-evt.profile_certificate = async (req,res)=>{
-    let id = req.params.id;
-    try{
-    const profile = await Document.findOne({_id:id}).populate({
-        path: 'id_certification',populate: {
-            path: 'id_signature',
-        },
-         
-    });console.log(profile)
-        res.render('profile_certificate',{profile:profile})
-    }
-    catch(err){
-        res.render('err',{err:err})
-    }
-}
+
 
 module.exports = evt;

@@ -129,7 +129,7 @@
 			// Aquí se envía el formulario utilizando AJAX
 			$.ajax({
 				type: "POST", // Tipo de solicitud (POST, GET, etc.)
-				url: "https://capacitacionarce.datosycifras.com/session/add_new_user_", // URL a la que se enviarán los datos del formulario
+				url: "http://localhost:8889/session/add_new_user_", // URL a la que se enviarán los datos del formulario
 				data: { name: $('#name').val(), lastnames: $('#lastnames').val(), phone: $('#phone').val(), email: $('#email').val(), role:$('#role').val(), birtday:$('#birtday').val(), user: $('#user').val(), password: $('#password').val(),  },	 // Datos que se enviarán al servidor (en este caso, el valor del campo "name")
 				success: function(response) {
 					console.log(response)

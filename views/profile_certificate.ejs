@@ -36,9 +36,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 offset-md-2">
-                <div class="card">
-                    <% const diffTime = profile.finish.getTime() - profile.start.getTime(); %>
-                    <% const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); %>
+                <div class="card"> 
                     <!-- Logo de la Escuela -->
                     <img src="/assets/img/logo.png" alt="Logo Escuela" class="logo">
                     
@@ -46,8 +44,8 @@
                     <p class="card-text"><%= profile.id_certification.description %></p>
 
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Inicio de curso: <%= profile.start.toLocaleDateString() %></li>
-                        <li class="list-group-item">Fin del curso: <%= profile.finish.toLocaleDateString() %></li>
+                        <li class="list-group-item">Inicio de curso: <%= profile.start  %></li>
+                        <li class="list-group-item">Fin del curso: <%= profile.finish  %></li>
                         <li class="list-group-item">Expedido: <%= profile.data_register.toLocaleDateString() %></li>
                     </ul>
 

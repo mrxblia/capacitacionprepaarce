@@ -17,19 +17,21 @@ evt.test = async (req, res) => {
 }
 evt.portal = async (req, res) => {
     try {
-        const data = await Document.find({}).populate({
+        const data = await Document.find().populate({
             path: 'id_certification',
             select: 'name'
-        }).sort({ name: 1 });
+        }).sort({ name: 1 })
+        console.log(data)
         const dataCertif = await Acredit.find({ status: true }).sort({ name: 1 });
-        
+         
         const certificationsTrue = [];
         const certificationsFalse = [];
-        let ct = {}
         for (let i = 0; i < data.length; i++) { 
+        console.log('Cilo - 1-'+i)
             const item = data[i];
         
             if (item.status === true) { 
+                let ct = {}
                 // Parsea la fecha original al formato de Moment.js
                 const parsedDate = moment.utc(item.start, 'YYYY-MM-DDTHH:mm:ss.SSSZ');
                 const parsedDateFinish = moment.utc(item.finish, 'YYYY-MM-DDTHH:mm:ss.SSSZ');
@@ -49,9 +51,9 @@ evt.portal = async (req, res) => {
                 ct.folio=item.folio
                 ct.qr=item.qr
 
-                certificationsTrue.push(ct);
-                console.log(certificationsTrue)
+                certificationsTrue.push(ct); 
             } else {  
+                let ct = {}
                 // Parsea la fecha original al formato de Moment.js
                 const parsedDate = moment.utc(item.start, 'YYYY-MM-DDTHH:mm:ss.SSSZ');
                 const parsedDateFinish = moment.utc(item.finish, 'YYYY-MM-DDTHH:mm:ss.SSSZ');
@@ -70,8 +72,7 @@ evt.portal = async (req, res) => {
                 ct.finish= formattedFinish;
                 ct.folio=item.folio
                 ct.qr=item.qr
-                certificationsFalse.push(ct);
-                console.log(certificationsFalse[0].start)
+                certificationsFalse.push(ct); 
             }
         } 
         if(req.session.authenticated ){ 

@@ -26,7 +26,7 @@ evt.add_user = async (req,res)=>{
         newUser.birtday = birtday; 
         newUser.user = user; 
         newUser.password=pass;
-        newUser.type_user=1;
+        newUser.type_user=1;console.log(newUser)
         const userN = await newUser.save(); 
         if (userN) { 
           const payload = { check: true };
@@ -36,6 +36,7 @@ evt.add_user = async (req,res)=>{
           newToken.token=token;
           newToken.id_user=userN.id;
           newToken.authenticated=true;
+          console.log('EEE')
           try{
             const tk= await newToken.save();
             if( tk  ){

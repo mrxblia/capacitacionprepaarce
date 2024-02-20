@@ -17,7 +17,7 @@ const certifSchema = new Schema({
         required:true
     }, 
     folio:{
-        type:String,
+        type:Number,
         required:true
     },
     qr:{

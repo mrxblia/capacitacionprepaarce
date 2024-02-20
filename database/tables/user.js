@@ -26,8 +26,7 @@ const userSchema = new Schema({
     }, 
     rol: {
         type: String,
-        required: true,
-        unique: true,
+        required: true, 
         validate: {
             validator: esRolValido,
             message: props => `${props.value} no es un rol válido`

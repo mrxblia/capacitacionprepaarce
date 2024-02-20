@@ -160,7 +160,7 @@
                         <tr>  
                             
                             <td><i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="<%= dat.name %> <%= dat.lastnames %> - <%= dat.id_certification.name %> - <%= dat.start %> - <%= dat.finish %>"></i></td>
-                            <td> <%= dat.name %> <%= dat.lastnames %></td>
+                            <td> <a href="/validations/certification-validate/<%= dat.folio%>"><%= dat.name %> <%= dat.lastnames %></a></td>
                             
                             <td>
                                 <% if (dat.id_certification) { %>
